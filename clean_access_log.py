@@ -86,7 +86,6 @@ class CleanAccessLogMain:
     def main(self):
         while True:
             self.write_local_access_log()
-            self.delete_remote_access_log()
 
 
 if __name__ == '__main__':
