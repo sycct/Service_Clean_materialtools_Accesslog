@@ -56,7 +56,8 @@ class CleanAccessLogMain:
 
     def write_local_access_log(self):
         # 将软成数据写入到本地数据库
-        with closing(self._local_mysql) as mysql_conn:
+        init_config = conn_config.ConnConfig()
+        with closing(init_config.Conn_Local_MySQL()) as mysql_conn:
             with closing(mysql_conn.cursor()) as cur:
                 sql = "INSERT INTO access_log(TIME, IP, URL, USER_AGENT, REFERER) VALUES (%s,%s,%s,%s,%s);"
                 data_list = self.read_remote_access_log()
@@ -69,7 +70,8 @@ class CleanAccessLogMain:
             self.delete_remote_access_log()
 
     def delete_remote_access_log(self):
-        with closing(self._remote_mysql) as mysql_conn:
+        init_config = conn_config.ConnConfig()
+        with closing(init_config.Conn_MySQL()) as mysql_conn:
             with closing(mysql_conn.cursor()) as cur:
                 if self._temp_list_id is not None:
                     for item in self._temp_list_id:
