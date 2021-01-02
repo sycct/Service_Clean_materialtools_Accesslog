@@ -25,8 +25,7 @@ class CleanAccessLogMain:
         init_config = conn_config.ConnConfig()
         with closing(init_config.Conn_MySQL()) as mysql_conn:
             with closing(mysql_conn.cursor()) as cur:
-                # 查询2019年全年数据
-                sql = "SELECT * FROM SMS_Receive_Production.access_log JOIN (SELECT id FROM SMS_Receive_Production.access_log LIMIT 1000 OFFSET 0) AS t1 ON (t1.id=access_log.id);"
+                sql = "SELECT * FROM SMS_Receive_Production.access_log JOIN (SELECT id FROM SMS_Receive_Production.access_log LIMIT 100000 OFFSET 0) AS t1 ON (t1.id=access_log.id);"
                 # 执行SQL语句
                 try:
                     cur.execute(sql)
